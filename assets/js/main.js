@@ -1,11 +1,27 @@
 
 
-const offset = 0
-const limit = 10
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+function convertPokemonToLi(pokemon) {
+    return `
+            <li class="pokemon">
+                <span class="number">#001</span>
+                <span class="name">${pokemon.name}</span>
+                
+                <div class="detail">
+                    <ol class="types">
+                        <li class="type">grass</li>
+                        <li class="type">poison</li>
+                    </ol>
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="${pokemon.name}">
+                </div>
+            </li>
+        `
+}
 
-fetch(url) // retorna uma Promisse - Processamento assíncrono pois não tem a resposta de imediato
-    .then((response) => response.json()) // converte o resultado da Promisse para um formato json
-    .then((jsonBody) => console.log(jsonBody)) // recebe já transformado para json
-    .catch((error) => console.log(error)) // roda no caso de fracasso na requisição
+const pokemonList = document.getElementById('pokemonList') // pega a lista ol do html
+
+pokeApi.getPokemons().then((pokemons = []) => { // recebe a listagem de pokemons já transformada do objeto json
+
+    pokemonList.innerHTML += pokemons.map(convertPokemonToLi).join('')
+
+})
 
